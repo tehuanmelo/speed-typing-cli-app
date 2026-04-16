@@ -1,0 +1,28 @@
+
+
+Screen {
+    height: 10;
+}
+
+.main {
+    align: center middle;
+}
+
+#sentence-label {
+    width: 100%;
+    text-align: center;
+    padding-top: 1;
+}
+
+#wpm-label {
+    padding-left: 2;
+    margin-top: 1;
+}
+
+#user-input {
+    max-width: 130;
+}
+
+#container {
+    align: center middle;
+}
