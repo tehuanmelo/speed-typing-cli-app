@@ -6,6 +6,7 @@ from textual import events
 from data.data import sentences
 import random
 from time import time
+from rich.text import Text
 
 class SpeedTyping(App):
     def __init__(self):
@@ -70,14 +71,11 @@ class SpeedTyping(App):
         self.wpm_label.update(self.get_result())
         
     def refresh_sentence_label(self):
-        label_sentence = ""
+        label_sentence = Text()
         for char_typed, char_curr in zip(self.typed, self.current_sentence):
-            if char_typed == char_curr:
-                label_sentence += f"[white on green]{char_typed}[/white on green]"
-            else:
-                label_sentence += f"[white on red]{char_typed}[/white on red]"
-                
-        label_sentence += self.current_sentence[len(self.typed):]
+            style = "white on green" if char_typed == char_curr else "white on red"
+            label_sentence.append(char_typed, style=style)     
+        label_sentence.append(self.current_sentence[len(self.typed):])
         return label_sentence
     
     def get_accuracy(self):
