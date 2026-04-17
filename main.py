@@ -42,7 +42,7 @@ class SpeedTyping(App):
         return len(self.current_sentence) == len(self.typed)
     
     def get_words_per_minute(self):
-        words_typed = len(self.typed.split())
+        words_typed = sum([len(word) for word in self.typed]) / len(self.typed.split())
         return words_typed / self.get_duration()
         
     def refresh_app(self):
@@ -63,15 +63,24 @@ class SpeedTyping(App):
                 
         label_sentence += self.current_sentence[len(self.typed):]
         return label_sentence
-                
+    
+    def get_accuracy(self):
+        if not len(self.typed) or not (self.current_sentence):
+            return 0
+        count = 0
+        for char_typed, char_curr in zip(self.typed, self.current_sentence):
+                if char_typed == char_curr: 
+                    count+=1
+        return count / len(self.current_sentence)
         
+ 
     def on_input_changed(self, event: Input.Changed):
         if self.start is None and event.value:
             self.start = time()
         self.typed = self.user_input.value
         self.sentence_label.update(self.refresh_sentence_label())
         if self.check_input_length():
-            self.wpm_label.update(f"WPM: {self.get_words_per_minute():.2f} time: {self.get_duration():.2f}")
+            self.wpm_label.update(f"WPM: {self.get_words_per_minute():.2f} Accuracy: {self.get_accuracy():.2%} Time: {self.get_duration():.2f}")
             self.refresh_app()
         
         
