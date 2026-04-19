@@ -73,8 +73,8 @@ class SpeedTyping(App):
     def refresh_sentence_label(self):
         label_sentence = Text()
         for char_typed, char_curr in zip(self.typed, self.current_sentence):
-            style = "white on green" if char_typed == char_curr else "white on red"
-            label_sentence.append(char_typed, style=style)     
+            style = "black on green" if char_typed == char_curr else "black on red"
+            label_sentence.append(char_curr, style=style)     
         label_sentence.append(self.current_sentence[len(self.typed):])
         return label_sentence
     
@@ -99,9 +99,9 @@ class SpeedTyping(App):
         self.typed = self.user_input.value
         self.sentence_label.update(self.refresh_sentence_label())
         if self.check_input_length():
-            self.wpm_label.update(self.get_result())
             self.typing_completed = True
             self.user_input.value = ""
+        self.wpm_label.update(self.get_result())
         
 
     def on_key(self, event: events.Key):

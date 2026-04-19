@@ -5,6 +5,7 @@
 .main {
     max-height: 11;
     align: center middle;
+    padding: 0 1;
 }
 
 #sentence-label {
